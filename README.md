@@ -6,14 +6,8 @@ Solutions in swift.
 
 ### How to execute
 
-Change to a day[N] directory and run:
 
 ```shell
-$ swift day[N].swift
+$ swift run AdventsOfCode --day N
 ```
 
-Execute **day3** challange with _-enable-bare-slash-regex_ because we use new regex syntax.
-
-```shell
-$ swift -enable-bare-slash-regex day3.swift
-```

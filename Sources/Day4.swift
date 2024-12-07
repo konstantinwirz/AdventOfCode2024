@@ -1,7 +1,61 @@
-import Foundation
+struct Day4: Solution {
 
-func parseCharacters(_ input: String) -> [[Character]] {
-    return input.split(separator: Character("\n")).map { Array($0) }
+    func run(_ input: String) {
+        print("XMAS occurrs \(parseCharacters(input).countWords("XMAS")) times")
+        print("crossed MAS/SAM occurrs \(parseCharacters(input).countXmases()) times")
+
+    }
+
+    func test() {
+        let input1 = """
+            MMMSXXMASM
+            MSAMXMSMSA
+            AMXSXMAAMM
+            MSAMASMSMX
+            XMASAMXAMM
+            XXAMMXXAMA
+            SMSMSASXSS
+            SAXAMASAAA
+            MAMMMXMMMM
+            MXMXAXMASX
+            """
+
+        assert(
+            parseCharacters(input1).countWords("XMAS") == 18, "expected word XMAS exactly 18 times")
+
+        let input2 = """
+            S..S..S
+            .A.A.A.
+            ..MMM..
+            SAMXMAS
+            ..MMM..
+            .A.A.A.
+            S..S..S
+            """
+
+        assert(
+            parseCharacters(input2).countWords("XMAS") == 8, "expected word XMAS exactly 8 times")
+
+        let input3 = """
+            .M.S......
+            ..A..MSMS.
+            .M.S.MAA..
+            ..A.ASMSM.
+            .M.S.M....
+            ..........
+            S.S.S.S.S.
+            .A.A.A.A..
+            M.M.M.M.M.
+            ..........
+            """
+
+        assert(parseCharacters(input3).countXmases() == 9, "expected XMAS exactly 9 times")
+    }
+
+    private func parseCharacters(_ input: String) -> [[Character]] {
+        return input.split(separator: Character("\n")).map { Array($0) }
+    }
+
 }
 
 extension Array where Element == [Character] {
@@ -80,12 +134,13 @@ extension Array where Element == [Character] {
                 }
 
                 // we are possibly in middle of MAS cross
-                
-                if row - 1 >= 0 && row + 1 < self.count && col - 1 >= 0 && col + 1 < self[row].count {
+
+                if row - 1 >= 0 && row + 1 < self.count && col - 1 >= 0 && col + 1 < self[row].count
+                {
                     // now get the words
                     let words = [
-                        String([self[row-1][col-1], self[row][col], self[row+1][col+1]]),
-                        String([self[row-1][col+1], self[row][col], self[row+1][col-1]]),
+                        String([self[row - 1][col - 1], self[row][col], self[row + 1][col + 1]]),
+                        String([self[row - 1][col + 1], self[row][col], self[row + 1][col - 1]]),
                     ]
 
                     if words.allSatisfy({ $0 == "MAS" || $0 == "SAM" }) {
@@ -98,58 +153,3 @@ extension Array where Element == [Character] {
         return count
     }
 }
-
-func test() {
-    let input1 = """
-        MMMSXXMASM
-        MSAMXMSMSA
-        AMXSXMAAMM
-        MSAMASMSMX
-        XMASAMXAMM
-        XXAMMXXAMA
-        SMSMSASXSS
-        SAXAMASAAA
-        MAMMMXMMMM
-        MXMXAXMASX
-        """
-
-    assert(parseCharacters(input1).countWords("XMAS") == 18, "expected word XMAS exactly 18 times")
-
-    let input2 = """
-        S..S..S
-        .A.A.A.
-        ..MMM..
-        SAMXMAS
-        ..MMM..
-        .A.A.A.
-        S..S..S
-        """
-
-    assert(parseCharacters(input2).countWords("XMAS") == 8, "expected word XMAS exactly 8 times")
-
-    let input3 = """
-        .M.S......
-        ..A..MSMS.
-        .M.S.MAA..
-        ..A.ASMSM.
-        .M.S.M....
-        ..........
-        S.S.S.S.S.
-        .A.A.A.A..
-        M.M.M.M.M.
-        ..........
-        """
-
-    assert(parseCharacters(input3).countXmases() == 9, "expected XMAS exactly 9 times")
-}
-
-func run() {
-    let input = try! String(contentsOfFile: "input.txt", encoding: .ascii)
-
-    print("XMAS occurrs \(parseCharacters(input).countWords("XMAS")) times")
-    print("crossed MAS/SAM occurrs \(parseCharacters(input).countXmases()) times")
-    
-}
-
-//test()
-run()
