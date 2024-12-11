@@ -18,7 +18,7 @@ struct AdventOfCode: ParsableCommand {
     var day: Int
 
     private static let solutions: [any Solution] = [
-        Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9()
+        Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9(), Day10()
     ]
 
     func run() throws {
