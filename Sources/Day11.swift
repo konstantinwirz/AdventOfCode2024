@@ -23,9 +23,7 @@ struct Day11: Solution {
         for stone in stones {
             count += blink(stone, times: times, cache: &cache)
         }
-
-        print("Cache size: \(cache.count)")
-
+        
         return count
     }
 
