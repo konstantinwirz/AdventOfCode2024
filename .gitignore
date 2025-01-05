@@ -2,3 +2,5 @@
 .build/
 .swiftpm/
 .vscode/
+/target
+.idea/
